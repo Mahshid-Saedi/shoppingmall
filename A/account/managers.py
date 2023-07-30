@@ -1,6 +1,6 @@
 from django.contrib.auth.models import BaseUserManager
 
-class UserManager(BaseUserManager):# در کل دو تا تابع به نام های create_user,create_superuser دارد
+class UserManager(BaseUserManager): # در کل دو تا تابع به نام های create_user,create_superuser دارد
     def create_user(self, phone_number, email, full_name, password):
         if not phone_number:
             raise ValueError('user must have phone number')
