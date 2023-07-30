@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, AbstractUser
+from .managers import UserManager
 
 class User(AbstractBaseUser):# this modele inheriate from abstractbaceuser that has some default atteribute like username for user model
     email = models.CharField(max_length=255, unique=True) # for user cannot enter the repetitious email we set unique=True
@@ -10,6 +11,8 @@ class User(AbstractBaseUser):# this modele inheriate from abstractbaceuser that 
 
     USERNAME_FILED = 'phone_number' # اعتبار سنجی کاربر با شماره تلفن و این شماره تلفن باید یونیک باشد
     REQUIRED_FIELDS = ['email'] # this code just use when in terminal we enter python manage.py createsuperuser for get some info from user
+
+    objects =UserManager()
 
 
     def __str__(self):
