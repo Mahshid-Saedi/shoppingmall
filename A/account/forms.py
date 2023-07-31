@@ -35,3 +35,10 @@ class UserChangeForm(forms.ModelForm):#این کلاس اطلاعات وارد �
     class Meta:
         model = User
         fields = ('email', 'phone_number', 'full_name', 'password', 'last_login')# در اینجا پسورد و last_login در مدل مان نداریم اما چون داخل AbstractBaseUser هست میتوان اینجا بنویسیمشان
+
+
+class UserRegisterationForm(forms.Form):
+        email = forms.EmailField()
+        full_name = forms.CharField(label='full name')
+        phone = forms.CharField(max_length=11)
+        password = forms.CharField(widget=forms.PasswordInput) # نمایش پسورد وارد شده به صورت ستاره

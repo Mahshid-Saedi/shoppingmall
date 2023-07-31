@@ -27,3 +27,12 @@ class User(AbstractBaseUser):# this modele inheriate from abstractbaceuser that 
     @property
     def is_staff(self):#کاربر هایی که اجازه دارند وارد ادمین پلن شوند
         return self.is_admin
+
+# این کلاس برای شماره تلفن واردشده کاربر یک کد تایید می فرستیم تا با آن اعتبارسنجی شود
+class OtpCode(models.Model):
+    phone_number = models.CharField(max_length=11)
+    code = models.SmallIntegerField()
+    created = models.DateTimeField(auto_now=True)# مدت زمان برای تاریخ انقضای کد یکبارمصرف
+
+    def __str__(self):
+        return f'{self.phone_number} - {self.code} - {self.created}'

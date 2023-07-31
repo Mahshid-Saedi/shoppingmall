@@ -17,7 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 
+  #در اینجا url های مربوط به هرapp مان را می نویسیم
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include('home.urls', namespace = 'home')),
+    path('account/', include('account.urls', namespace = 'account')),
 ]
