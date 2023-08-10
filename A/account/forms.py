@@ -1,5 +1,5 @@
 from django import forms
-from .models import User
+from .models import User,OtpCode
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
@@ -42,3 +42,27 @@ class UserRegisterationForm(forms.Form):
         full_name = forms.CharField(label='full name')
         phone = forms.CharField(max_length=11)
         password = forms.CharField(widget=forms.PasswordInput) # نمایش پسورد وارد شده به صورت ستاره
+
+        def clean_email(self): # این تابع برای اینه که کاربر ایمیل تکراری وارد نکند
+            email = self.cleaned_data['email']
+            user = User.objects.filter(email = email).exists()
+            if user:
+                raise ValidationError('This email is already exists')
+            return email
+
+        def clean_phone(self): # این تابع برای اینه که کاربر شماره تلفن تکراری وارد نکند
+            phone = self.cleaned_data['phone']
+            user = User.objects.filter(phone_number=phone).exists()
+            if user:
+                raise ValidationError('This phone number is already exists')
+            OtpCode.objects.filter(phone_number=phone).delete()
+            return phone
+
+
+class VerifyCodeForm(forms.Form):
+    code = forms.IntegerField()
+
+
+class UserLoginForm(forms.Form):
+    phone = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput)

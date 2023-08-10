@@ -30,7 +30,7 @@ class User(AbstractBaseUser):# this modele inheriate from abstractbaceuser that 
 
 # این کلاس برای شماره تلفن واردشده کاربر یک کد تایید می فرستیم تا با آن اعتبارسنجی شود
 class OtpCode(models.Model):
-    phone_number = models.CharField(max_length=11)
+    phone_number = models.CharField(max_length=11,unique=True, null = True, blank=True )#هر وقت خواستیم مدلمان را آپدیت کنیم باید در داخل اون متغییر تغییر یافته بنویسیم :null=True,blank=True
     code = models.SmallIntegerField()
     created = models.DateTimeField(auto_now=True)# مدت زمان برای تاریخ انقضای کد یکبارمصرف
 

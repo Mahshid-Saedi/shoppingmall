@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "home.apps.HomeConfig",
     "account.apps.AccountConfig",
+    "storages",
+    "django_celery_beat" # این مربوط به سلری بیت هست که داخل مستند سلری برو بخوانش دستوراتش رو برای اینکه یک چیزی را به مدت زمان معینی تکرار کنیم
 ]
 
 MIDDLEWARE = [
@@ -111,10 +113,30 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+# Static files
 STATIC_URL = "static/"
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+
+# Media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = 'account.User' #برای اینکه از مدل یوزر مان استفاده کنیم باید این را بنویسیم که ابتدا نام اپ مان سپس نام مدلمان
+
+
+
+#ARVAN CLOUD STORAGES
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_ACCESS_KEY_ID = '03307cb8-ce5b-4cfb-b0db-3f6ec5b8f0e4'
+AWS_SECRET_ACCESS_KEY = '06972e71c1fc4015fb3184ee19ade56b92b8ecbaa01b1a6fcc344163c06017e3'
+AWS_S3_ENDPOINT_URL = 'https://s3.ir-tbz-sh1.arvanstorage.ir'
+AWS_STORAGE_BUCKET_NAME = 'django-myshopmall-00'
+AWS_SERVICE_NAME = 's3'
+AWS_S3_FILE_OVERWRITE = False
